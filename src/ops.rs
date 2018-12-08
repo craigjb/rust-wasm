@@ -4,6 +4,8 @@ use std::ops::*;
 use core;
 use core::ptr::copy_nonoverlapping;
 
+use copysign::{copysignf32, copysignf64};
+
 pub trait IntOp<S=Self> {
 	type FloatType;
 
@@ -491,8 +493,7 @@ macro_rules! impl_float_op {
 
 			#[inline]
 			fn copysign(self, rhs: $T) -> $T {
-				use std::intrinsics;
-				unsafe { intrinsics::$copysign(self, rhs) }
+                            $copysign(self, rhs)
 			}
 
 			#[inline]
